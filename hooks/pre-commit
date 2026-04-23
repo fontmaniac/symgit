@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Pre-commit hook running symgit in prepare mode"
+
+# Determine current branch
+branch="$(git symbolic-ref --short HEAD)"
+
+# Run symgit in prepare mode
+dotnet fsi symgit.fsx prepare -all -tag "$branch"
+
+# Stage updated .symgit files
+git add ./*.symgit 2>/dev/null
+

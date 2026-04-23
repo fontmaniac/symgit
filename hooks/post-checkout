@@ -1,0 +1,11 @@
+#!/bin/sh
+
+OLD_REF="$1"
+NEW_REF="$2"
+IS_BRANCH_SWITCH="$3"
+
+echo "Post-checkout hook running symgit in checkout mode"
+
+# Run symgit in checkout mode for all manifests
+dotnet fsi symgit.fsx checkout -all
+
