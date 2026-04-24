@@ -401,7 +401,8 @@ let handleUpdate hashFile =
     printfn "symgit manifest:'%s' (repo:'%s') mode:update" hashFile bm.ContentPath
 
     if isValidRepo bm.ContentPath then pullRepo bm.ContentPath
-    else cloneRepo bm.ContentPath bm.RemoteUrl hashFile
+    else if (String.IsNullOrWhiteSpace(bm.RemoteUrl) |> not) then cloneRepo bm.ContentPath bm.RemoteUrl hashFile
+    else printfn "No remote configured for '%s'. Unable to update." hashFile
 
 let handleInit hashFile repoPath maybeRemote =
     printfn "symgit manifest:'%s' mode:init repo:'%s'" hashFile repoPath
